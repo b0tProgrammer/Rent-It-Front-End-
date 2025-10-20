@@ -1,16 +1,28 @@
+import {useNavigate} from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 function Header() {
-
+    const navigate = useNavigate();
     var token = localStorage.getItem("token");
-    if(!token) console.log("no token");
-
+    const decodedToken = token ? jwtDecode(token) : null;
+  const userName = decodedToken ? decodedToken.sub : 'Enter';
     return (
         <>
             <div>
                 <img src="null" alt="RentIt Logo" />
                 <input type="text" placeholder="Search for products..." />
                 <button>Search</button>
-                <span onClick={() => console.log("Hi!")}>Login</span>
+                <span 
+                    onClick={ () => 
+                        {
+                            if(userName === 'Enter'){
+                                navigate('/login');
+                            } else {
+                                navigate('/');
+                            }
+                        }
+                    }   
+                >Login</span>
                 <button>Give Rent</button>
             </div>
         </>
