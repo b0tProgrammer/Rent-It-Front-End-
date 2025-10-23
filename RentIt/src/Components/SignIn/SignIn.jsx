@@ -16,6 +16,7 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [phoneNumber,setPhoneNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   function handleSubmit(e) {
@@ -54,6 +55,11 @@ function SignIn() {
           type="email"
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Phone Number"
+          onChange={(e) => setPhoneNumber(e.target.value)}
         />
         <input
           type="password"

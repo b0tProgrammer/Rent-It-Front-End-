@@ -21,6 +21,7 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     alert(`Logging in ${name}`);
+    navigate("/");
   }
 
   return (
