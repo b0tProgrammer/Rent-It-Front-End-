@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import { FadeLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 import styles from "./SignIn.module.css";
 
 function SignIn() {
-  const token = localStorage.getItem("token");
   const userName = localStorage.getItem("userName") || "null";
+  const navigate = useNavigate();
   if (userName !== "null") {
     window.location.href = "/";
   }
@@ -23,13 +23,12 @@ function SignIn() {
       alert("Passwords do not match. Please re-enter.");
       return;
     }
-    const data = { name , email, password, phoneNumber };
     setIsLoading(true);
     try {
       const resp = await fetch("http://localhost:5000/api/v1/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ username:name , email, password, phone:phoneNumber }),
       });
       if (!resp.ok) {
         alert("Sign In failed!");
@@ -37,9 +36,7 @@ function SignIn() {
       }
       const result = await resp.json();
       console.log("Sign In successful:", result);
-      localStorage.setItem("userName", result.data.user.username);
-      localStorage.setItem("token", result.accessToken);
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       console.error("Error Sign in:", err);
       alert("Try Again!");
@@ -96,4 +93,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignIn;
