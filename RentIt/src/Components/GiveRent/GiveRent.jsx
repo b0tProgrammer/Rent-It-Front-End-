@@ -1,6 +1,7 @@
 import styles from "./GiveRent.module.css";
 import Header from "../Header/Header";
 import { useState } from "react";
+import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
 function GiveRent() {
@@ -10,6 +11,7 @@ function GiveRent() {
   const [productPrice, setProductPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [productImage, setProductImage] = useState(null);
+  const [isLoading,setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
   const decodedToken = token ? jwtDecode(token) : null;
   const userName = decodedToken ? decodedToken.sub : "null";
@@ -24,7 +26,7 @@ function GiveRent() {
 
   const ownerName = "null"; 
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     console.log({
       productName,
@@ -34,11 +36,50 @@ function GiveRent() {
       productImage,
       ownerName,
     });
+    const data = {
+      productName,
+      productType,
+      productPrice,
+      productDescription,
+      productImage,
+      ownerName,
+    }
+    setIsLoading(true);
+    try {
+      const resp = await fetch("http://localhost:5000/api/v1/auth/API", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!resp.ok) {
+        alert("Ad isn't published try again!");
+        return;
+      }
+      const result = await resp.json();
+      console.log("Ad Published successfully", result);
+    } catch (err) {
+      console.error("Error logging in:", err);
+      alert("Try Again!");
+    } finally {
+      setIsLoading(false);  
+    }
   };
 
   return (
     <>
       <Header />
+      {isLoading && (
+        <div className={styles.loaderOverlay}>
+          <FadeLoader
+            color={"#352828ff"}
+            loading={isLoading}
+            height={15}
+            width={5}
+            radius={2}
+            margin={2}
+          />
+        </div>
+      )}
       <div className={styles.form}>
         <h2 className={styles.title}>Give Rent</h2>
         <form onSubmit={handleSubmit}>

@@ -19,14 +19,31 @@ function SignIn() {
   const [phoneNumber,setPhoneNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    const data = { name, email, password };
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      alert(`Account created for ${username}`);
-      window.location.href = "/";
-    }, 2000);
+    try {
+      const resp = await fetch("http://localhost:5000/api/v1/auth/API", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!resp.ok) {
+        alert("Sign In failed!");
+        return;
+      }
+      const result = await resp.json();
+      console.log("Sign In successful:", result);
+      localStorage.setItem("userName", result.data.user.username);
+      localStorage.setItem("token", result.accessToken);
+      navigate("/");
+    } catch (err) {
+      console.error("Error Sign in:", err);
+      alert("Try Again!");
+    } finally {
+      setIsLoading(false);  
+    }
   }
 
   return (
