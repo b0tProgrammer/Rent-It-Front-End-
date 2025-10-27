@@ -5,8 +5,7 @@ import styles from "./Header.module.css";
 function Header() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const decodedToken = token ? jwtDecode(token) : null;
-  const userName = decodedToken ? decodedToken.sub : "null";
+  const userName = localStorage.getItem("userName") || "Guest";
 
   return (
     <header className={styles.header}>
