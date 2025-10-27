@@ -5,14 +5,12 @@ import styles from "./SignIn.module.css";
 
 function SignIn() {
   const token = localStorage.getItem("token");
-  const decodedToken = token ? jwtDecode(token) : null;
-  const userName = decodedToken ? decodedToken.sub : "null";
-
+  const userName = localStorage.getItem("userName") || "null";
   if (userName !== "null") {
     window.location.href = "/";
   }
 
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,7 +19,11 @@ function SignIn() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const data = { name, email, password };
+    if (password !== confirmPassword) {
+      alert("Passwords do not match. Please re-enter.");
+      return;
+    }
+    const data = { name , email, password, phoneNumber };
     setIsLoading(true);
     try {
       const resp = await fetch("http://localhost:5000/api/v1/auth/register", {
@@ -65,8 +67,8 @@ function SignIn() {
         <h2 className={styles.title}>Sign In</h2>
         <input
           type="text"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="User name"
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="email"

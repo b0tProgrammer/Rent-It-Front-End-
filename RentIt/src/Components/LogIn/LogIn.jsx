@@ -8,7 +8,6 @@ function Login() {
   if(userName !== "null"){
     window.location.href="/";
   }
-  const [name, setName] = useState(""); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -16,7 +15,7 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const data = { name, email, password };
+    const data = { email, password };
     setLoading(true);
     try {
       const resp = await fetch("http://localhost:5000/api/v1/auth/login", {
@@ -31,7 +30,7 @@ function Login() {
       const result = await resp.json();
       console.log("Login successful:", result);
       localStorage.setItem("userName", result.data.user.username);
-      localStorage.setItem("token", result.accessToken);
+      localStorage.setItem("token", result.data.accessToken);
       navigate("/");
     } catch (err) {
       console.error("Error logging in:", err);
@@ -58,12 +57,6 @@ function Login() {
       <div>
         <form onSubmit={handleSubmit} className={styles.form}>
           <h2 className={styles.title}>Log In</h2>
-
-          <input
-            type="text"
-            placeholder="Username"
-            onChange={(e) => setName(e.target.value)}
-          />
           <input
             type="email"
             placeholder="Email"
