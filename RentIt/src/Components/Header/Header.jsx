@@ -12,10 +12,10 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.logoSection}>
         <img
-          src="/logo192.png" // Replace with your RentIt logo path
+          src="/logo192.png"
           alt="RentIt Logo"
           className={styles.logo}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/")}   
         />
         <h1 className={styles.brandName}>RentIt</h1>
       </div>

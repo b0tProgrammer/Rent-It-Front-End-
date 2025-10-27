@@ -1,11 +1,9 @@
-import { jwtDecode } from "jwt-decode";
-
 function User() {
     const token = localStorage.getItem("token");
-    const decodedToken = token ? jwtDecode(token) : null;
-    const userName = decodedToken ? decodedToken.sub : 'null';
-    if(userName === 'null'){
+    const userName = localStorage.getItem("userName") || "null";
+    if(token === null || userName === "null"){
         window.location.href = '/login';
+        return;
     }
     return (
         <>

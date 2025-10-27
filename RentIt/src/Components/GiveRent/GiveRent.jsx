@@ -13,9 +13,6 @@ function GiveRent() {
   const [productImage, setProductImage] = useState(null);
   const [isLoading,setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
-  const decodedToken = token ? jwtDecode(token) : null;
-  const userName = decodedToken ? decodedToken.sub : "null";
-
   if(!token) {
     return(
       <>
@@ -24,7 +21,7 @@ function GiveRent() {
     )
   }
 
-  const ownerName = "null"; 
+  const ownerName = localStorage.getItem("userName") || "Anonymous"; 
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -48,7 +45,10 @@ function GiveRent() {
     try {
       const resp = await fetch("http://localhost:5000/api/v1/auth/API", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+         },
         body: JSON.stringify(data),
       });
       if (!resp.ok) {

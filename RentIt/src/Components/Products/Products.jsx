@@ -9,7 +9,7 @@ function Products() {
     async function getProducts() {
         setLoading(true);
         try {
-            const resp = await fetch("http://localhost:5000/api/v1/auth/API");
+            const resp = await fetch("http://localhost:5000/api/v1/all");
             if (!resp.ok) {
                 console.error("failed to load products, status:", resp.status);
                 setProducts([]);
@@ -22,7 +22,7 @@ function Products() {
         } catch (err) {
             console.error("Error loading products:", err);
             setProducts([]);
-        } finally {
+        } finally { 
             setLoading(false);
         }
     }
