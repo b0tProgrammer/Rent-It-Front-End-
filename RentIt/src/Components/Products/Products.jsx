@@ -9,19 +9,16 @@ function Products() {
     async function getProducts() {
         setLoading(true);
         try {
-            const resp = await fetch("http://localhost:5000/api/v1/all");
+            const resp = await fetch("http://localhost:5000/api/v1/products/all");
             if (!resp.ok) {
                 console.error("failed to load products, status:", resp.status);
                 setProducts([]);
                 return;
             }
             const result = await resp.json();
-            // Log raw response for easier debugging of response shape
-            console.debug("raw products response:", result);
-            const items = result?.data || result?.products || (Array.isArray(result) ? result : undefined) || [];
-            // Ensure we only set an array
-            const normalized = Array.isArray(items) ? items : [];
-            setProducts(normalized);    
+            const items = result?.data.products || [];
+            setProducts(items);    
+            console.log("Products loaded successfully (count):", items.length);    
             console.log("Products loaded successfully (count):", normalized.length);
         } catch (err) {
             console.error("Error loading products:", err);
