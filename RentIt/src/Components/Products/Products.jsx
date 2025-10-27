@@ -16,9 +16,13 @@ function Products() {
                 return;
             }
             const result = await resp.json();
-            const items = result.data || result.products || result || [];
-            setProducts(Array.from(items) ? items : []);
-            console.log("Products loaded successfully:", items);
+            // Log raw response for easier debugging of response shape
+            console.debug("raw products response:", result);
+            const items = result?.data || result?.products || (Array.isArray(result) ? result : undefined) || [];
+            // Ensure we only set an array
+            const normalized = Array.isArray(items) ? items : [];
+            setProducts(normalized);    
+            console.log("Products loaded successfully (count):", normalized.length);
         } catch (err) {
             console.error("Error loading products:", err);
             setProducts([]);
