@@ -17,7 +17,7 @@ function Products() {
             }
             const result = await resp.json();
             const items = result.data || result.products || result || [];
-            setProducts(Array.isArray(items) ? items : []);
+            setProducts(Array.from(items) ? items : []);
             console.log("Products loaded successfully:", items);
         } catch (err) {
             console.error("Error loading products:", err);
