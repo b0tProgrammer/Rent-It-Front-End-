@@ -39,7 +39,7 @@ function Header() {
             }
           }}
         >
-          {userName === "null" ? "Login" : userName}
+          {userName === "Guest" ? "Login" : userName}
         </span>
 
         <button
