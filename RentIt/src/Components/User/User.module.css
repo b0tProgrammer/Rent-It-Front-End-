@@ -1,0 +1,244 @@
+.userContainer {
+  padding: 24px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #374151;
+  background-color: #fafafa;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.logoutBtn {
+  background: white;
+  color: #4f46e5;
+  font-weight: 600;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.logoutBtn:hover {
+  background: #eef2ff;
+  transform: translateY(-2px);
+}
+
+/* Section Heading */
+h2 {
+  font-size: 20px;
+  color: #111827;
+  margin-bottom: 20px;
+}
+
+/* Product Grid */
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Product Card */
+.productCard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.productCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Image */
+.productImage {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background: #f3f4f6;
+}
+
+/* Product Info */
+.productInfo {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.productInfo h3 {
+  font-size: 16px;
+  color: #111827;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.productInfo p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.price {
+  font-weight: 700;
+  color: #10b981;
+  font-size: 15px;
+}
+
+/* Action Buttons */
+.productActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.rentBtn,
+.deleteBtn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+}
+
+.rentBtn {
+  background: linear-gradient(90deg, #34d399, #10b981);
+  color: white;
+}
+
+.rentBtn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.deleteBtn {
+  background: linear-gradient(90deg, #f87171, #ef4444);
+  color: white;
+}
+
+.deleteBtn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+/* Loader Overlay */
+.loaderOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 1000;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .productGrid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .logoutBtn {
+    align-self: flex-end;
+  }
+}
+
+.productActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.rentBtn,
+.makeAvailableBtn,
+.deleteBtn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Give on Rent active color */
+.rentBtn {
+  background-color: #4f46e5;
+}
+.rentBtn:hover {
+  background-color: #4338ca;
+}
+
+/* Make Available active color */
+.makeAvailableBtn {
+  background-color: #16a34a;
+}
+.makeAvailableBtn:hover {
+  background-color: #15803d;
+}
+
+/* Delete button */
+.deleteBtn {
+  background-color: #dc2626;
+}
+.deleteBtn:hover {
+  background-color: #b91c1c;
+}
+
+/* Disabled button */
+.disabledBtn {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #9ca3af !important;
+}
+
+/* Status colors */
+.available {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.unavailable {
+  color: #dc2626;
+  font-weight: 600;
+}

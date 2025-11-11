@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import styles from "./SignIn.module.css";
+import styles from "../Login/Login.module.css"
 
 function SignIn() {
   const userName = localStorage.getItem("userName") || "null";
@@ -88,6 +88,12 @@ function SignIn() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <button type="submit">Create Account</button>
+        <span
+            className={styles.createAccount}
+            onClick={() => navigate("/")}
+          >
+            Go to Home
+          </span>
       </form>
     </>
   );

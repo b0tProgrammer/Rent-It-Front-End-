@@ -4,6 +4,7 @@ import SignIn from './Components/SignIn/SignIn.jsx';
 import MainScreen from './Components/MainScreen/MainScreen.jsx';
 import GiveRent from './Components/GiveRent/GiveRent.jsx';
 import User from './Components/User/User.jsx';
+import Product from './Components/Product/Product.jsx';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/signIn' element={<SignIn />} />
         <Route path='/GiveRent' element={<GiveRent />} />
         <Route path='/user' element={<User/>} />
+        <Route path='/product/:id' element={<Product />} />
       </Routes>
     </BrowserRouter>
   )

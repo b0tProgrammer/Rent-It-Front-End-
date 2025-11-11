@@ -84,6 +84,7 @@
 .loginLink {
   color: #6366f1;
   font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;
   transition: color 0.2s ease;
 }

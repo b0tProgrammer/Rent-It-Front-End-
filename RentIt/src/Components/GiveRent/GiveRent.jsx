@@ -13,6 +13,7 @@ function GiveRent() {
   const [productImage, setProductImage] = useState(null);
   const [isLoading,setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
+
   if(!token) {
     return(
       <>
@@ -25,45 +26,40 @@ function GiveRent() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log({
-      productName,
-      productType,
-      productPrice,
-      productDescription,
-      productImage,
-      ownerName,
-    });
-    const data = {
-      productName,
-      productType,
-      productPrice,
-      productDescription,
-      productImage,
-      ownerName,
-    }
     setIsLoading(true);
+
     try {
-      const resp = await fetch("http://localhost:5000/api/v1/auth/API", {
+      const formData = new FormData();
+      formData.append("name", productName);
+      formData.append("category", productType);
+      formData.append("price", productPrice);
+      formData.append("description", productDescription);
+      formData.append("ownerName", ownerName);
+      formData.append("image", productImage); // important: image file
+      const resp = await fetch("http://localhost:5000/api/v1/products/create", {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-         },
-        body: JSON.stringify(data),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
       });
+      console.log(resp);
       if (!resp.ok) {
-        alert("Ad isn't published try again!");
+        alert("Ad isn't published, try again!");
         return;
       }
+
       const result = await resp.json();
       console.log("Ad Published successfully", result);
+      alert("Ad published successfully!");
     } catch (err) {
-      console.error("Error logging in:", err);
+      console.error("Error publishing ad:", err);
       alert("Try Again!");
     } finally {
-      setIsLoading(false);  
+      setIsLoading(false);
     }
-  };
+  }
+
 
   return (
     <>
@@ -104,6 +100,7 @@ function GiveRent() {
               <option value="">Select product type</option>
               <option value="cars">cars</option>
               <option value="bikes">bikes</option>
+              <option value="electronics">stationary</option>
               <option value="properties">properties</option>
               <option value="furniture">furniture</option>
               <option value="stationary">stationary</option>
@@ -143,7 +140,7 @@ function GiveRent() {
             />
           </div>
 
-          <button type="submit">Submit</button>
+          <button className={styles.submitButton}>Submit</button>
         </form>
       </div>
     </>

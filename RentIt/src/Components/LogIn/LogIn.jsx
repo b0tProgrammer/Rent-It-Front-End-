@@ -1,13 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
-import {useState } from "react";
+import {useState, useSyncExternalStore } from "react";
 import styles from "./Login.module.css";
 
 function Login() {
   const userName = localStorage.getItem("userName") || "null";
-  if(userName !== "null"){
-    window.location.href="/";
-  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -75,6 +72,13 @@ function Login() {
             onClick={() => navigate("/signIn")}
           >
             Create Account?
+          </span>
+
+          <span
+            className={styles.createAccount}
+            onClick={() => navigate("/")}
+          >
+            Go to Home
           </span>
         </form>
       </div>

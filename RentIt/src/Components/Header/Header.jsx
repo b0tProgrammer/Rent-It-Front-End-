@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import styles from "./Header.module.css";
 
 function Header() {
@@ -32,7 +31,7 @@ function Header() {
         <span
           className={styles.loginLink}
           onClick={() => {
-            if (userName === "null") {
+            if (userName === "Guest") {
               navigate("/login");
             } else {
               navigate("/user");
