@@ -20,8 +20,7 @@ function Products() {
       const result = await resp.json();
       const items = result?.data.products || [];
       setProducts(items);
-      console.log("Products loaded successfully (count):", items.length);
-      console.log("Products loaded successfully (count):", normalized.length);
+      // console.log("Products loaded successfully (count):", items.length);
     } catch (err) {
       console.error("Error loading products:", err);
       setProducts([]);

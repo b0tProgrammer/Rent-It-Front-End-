@@ -1,5 +1,4 @@
 import styles from "./GiveRent.module.css";
-import Header from "../Header/Header";
 import { useState } from "react";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
@@ -63,7 +62,6 @@ function GiveRent() {
 
   return (
     <>
-      <Header />
       {isLoading && (
         <div className={styles.loaderOverlay}>
           <FadeLoader

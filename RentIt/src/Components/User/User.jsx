@@ -21,12 +21,15 @@ function User() {
   async function fetchUserData() {
     setLoading(true);
     try {
-      const resp = await fetch("http://localhost:5000/api/v1/products/my-products", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const resp = await fetch(
+        "http://localhost:5000/api/v1/products/my-products",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (!resp.ok) {
         console.error("Failed to fetch user data:", resp.status);
         return;
@@ -47,16 +50,20 @@ function User() {
   }
 
   async function handleDelete(productId) {
-    const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this product?"
+    );
     if (!confirmDelete) return;
-
     try {
-      const resp = await fetch(`http://localhost:5000/api/v1/products/delete/${productId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const resp = await fetch(
+        `http://localhost:5000/api/v1/products/delete/${productId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (resp.ok) {
         setUserProducts((prev) => prev.filter((p) => p._id !== productId));
         alert("Product deleted successfully!");
@@ -70,16 +77,20 @@ function User() {
 
   // Toggle availability API call
   async function toggleAvailability(productId) {
-    setLoading(true);
+    // console.log("Toggling availability for product ID:", productId);
+    // setLoading(true);
     try {
-      const resp = await fetch(`http://localhost:5000/api/v1/products/toggle/${productId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ isAvailable: newStatus }),
-      });
+      const resp = await fetch(
+        `http://localhost:5000/api/v1/products/toggle/${productId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ isAvailable: undefined }), // Backend toggles the value
+        }
+      );
       if (resp.ok) {
         setUserProducts((prev) =>
           prev.map((p) =>
@@ -92,9 +103,21 @@ function User() {
     } catch (err) {
       console.error("Error updating availability:", err);
     }
-    finally {
-      setLoading(false);
-    }
+  }
+
+  if (loading) {
+    return (
+      <div className={styles.loaderOverlay}>
+        <FadeLoader
+          color={"#393535ff"}
+          loading={loading}
+          height={15}
+          width={5}
+          radius={2}
+          margin={2}
+        />
+      </div>
+    );
   }
 
   return (
@@ -105,76 +128,58 @@ function User() {
           Log Out
         </button>
       </div>
-
       <h2>Your Products</h2>
-
-      {loading ? (
-        <div className={styles.loaderOverlay}>
-          <FadeLoader
-            color={"#393535ff"}
-            loading={loading}
-            height={15}
-            width={5}
-            radius={2}
-            margin={2}
-          />
-        </div>
-      ) : userProducts.length === 0 ? (
-        <p>No products found.</p>
-      ) : (
-        <div className={styles.productGrid}>
-          {userProducts.map((product) => (
-            <div className={styles.productCard} key={product._id}>
-              <img
-                src={product.image || "https://via.placeholder.com/150"}
-                alt={product.name}
-                className={styles.productImage}
-              />
-              <div className={styles.productInfo}>
-                <h3>{product.name}</h3>
-                <p>{product.description}</p>
-                <p className={styles.price}>₹{product.price}</p>
-                <p
-                  className={
-                    product.isAvailable
-                      ? styles.available
-                      : styles.unavailable
-                  }
-                >
-                  {product.isAvailable ? "Available for Rent" : "Rented Out"}
-                </p>
-              </div>
-              <div className={styles.productActions}>
-                <button
-                  className={`${styles.rentBtn} ${
-                    product.isAvailable ? "" : styles.disabledBtn
-                  }`}
-                  disabled={!product.isAvailable}
-                  onClick={() => toggleAvailability(product._id)}
-                >
-                  Give on Rent
-                </button>
-
-                <button
-                  className={`${styles.makeAvailableBtn} ${
-                    product.isAvailable ? styles.disabledBtn : ""
-                  }`}
-                  disabled={product.isAvailable}
-                  onClick={() => toggleAvailability(product._id)}
-                >
-                  Make Available for Rent
-                </button>
-
-                <button
-                  className={styles.deleteBtn}
-                  onClick={() => handleDelete(product._id)}
-                >
-                  Delete
-                </button>
-              </div>
+      {userProducts.length === 0 ? (<p>No products found.</p>) : (
+      <div className={styles.productGrid}>
+        {userProducts.map((product) => (
+          <div className={styles.productCard} key={product._id}>
+            <img
+              src={product.image || "https://via.placeholder.com/150"}
+              alt={product.name}
+              className={styles.productImage}
+            />
+            <div className={styles.productInfo}>
+              <h3>{product.name}</h3>
+              <p>{product.description}</p>
+              <p className={styles.price}>₹{product.price}</p>
+              <p
+                className={
+                  product.isAvailable ? styles.available : styles.unavailable
+                }
+              >
+                {product.isAvailable ? "Available for Rent" : "Rented Out"}
+              </p>
             </div>
-          ))}
-        </div>
+            <div className={styles.productActions}>
+              <button
+                className={`${styles.rentBtn} ${
+                  product.isAvailable ? "" : styles.disabledBtn
+                }`}
+                // disabled={product.isAvailable}
+                onClick={() => toggleAvailability(product._id)}
+              >
+                Give on Rent
+              </button>
+              <button
+                className={`${styles.makeAvailableBtn} ${
+                  product.isAvailable ? styles.disabledBtn : ""
+                }`}
+                // disabled={!product.isAvailable}
+                onClick={() => toggleAvailability(product._id)}
+              >
+                Make Available for Rent
+              </button>
+
+              <button
+                className={styles.deleteBtn}
+                onClick={() => handleDelete(product._id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
       )}
     </div>
   );

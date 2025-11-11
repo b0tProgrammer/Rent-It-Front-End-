@@ -118,26 +118,6 @@ h2 {
   border-top: 1px solid #f3f4f6;
 }
 
-.rentBtn,
-.deleteBtn {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.25s ease;
-}
-
-.rentBtn {
-  background: linear-gradient(90deg, #34d399, #10b981);
-  color: white;
-}
-
-.rentBtn:hover {
-  background: #059669;
-  transform: translateY(-2px);
-}
 
 .deleteBtn {
   background: linear-gradient(90deg, #f87171, #ef4444);
@@ -146,7 +126,6 @@ h2 {
 
 .deleteBtn:hover {
   background: #dc2626;
-  transform: translateY(-2px);
 }
 
 /* Loader Overlay */
@@ -201,14 +180,15 @@ h2 {
   transition: 0.2s;
 }
 
-/* Give on Rent active color */
+
+
 .rentBtn {
-  background-color: #4f46e5;
-}
-.rentBtn:hover {
-  background-color: #4338ca;
+  background-color: #16a34a;
 }
 
+.rentBtn:hover {
+  background-color: #15803d;
+}
 /* Make Available active color */
 .makeAvailableBtn {
   background-color: #16a34a;

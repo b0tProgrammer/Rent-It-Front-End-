@@ -3,7 +3,6 @@ import Products from '../Products/Products.jsx';
 function MainScreen() {
     return (
         <>
-            <Header/>
             <Products/>
         </>
     )

@@ -31,6 +31,7 @@ function SignIn() {
         body: JSON.stringify({ username:name , email, password, phone:phoneNumber }),
       });
       if (!resp.ok) {
+        console.error("Sign In failed, status:", resp.status);
         alert("Sign In failed!");
         return;
       }

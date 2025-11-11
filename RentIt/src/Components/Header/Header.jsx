@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
+import LogoSvg from "../../../assets/RentItLogo.png";
 
 function Header() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.logoSection}>
         <img
-          src="/logo192.png"
+          src={LogoSvg} 
           alt="RentIt Logo"
           className={styles.logo}
           onClick={() => navigate("/")}   
@@ -40,6 +41,14 @@ function Header() {
         >
           {userName === "Guest" ? "Login" : userName}
         </span>
+        
+        <span
+          className={styles.loginLink}
+          onClick={() => {navigate("/")}}
+        >
+          Home
+        </span>
+
 
         <button
           className={styles.giveRentButton}

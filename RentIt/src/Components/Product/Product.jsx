@@ -16,12 +16,13 @@ function Product() {
   async function fetchProduct() {
     setLoading(true);
     try {
-      const resp = await fetch(`http://localhost:5000/api/v1/products/${id}`);
+      const resp = await fetch(`http://localhost:5000/api/v1/products/get/${id}`);
       if (!resp.ok) {
         console.error("Failed to fetch product:", resp.status);
         return;
       }
       const result = await resp.json();
+      console.log("Product fetched:", result);
       setProduct(result.data);
     } catch (err) {
       console.error("Error fetching product:", err);
@@ -80,7 +81,7 @@ function Product() {
               <h3>Owner Details</h3>
               <div className={styles.ownerInfo}>
                 <div>
-                  <p><strong>Name:</strong> {product.owner.name}</p>
+                  <p><strong>Name:</strong> {product.owner.username}</p>
                   <p><strong>Email:</strong> {product.owner.email}</p>
                   <p><strong>Phone:</strong> {product.owner.phone || "Not available"}</p>
                 </div>
@@ -89,7 +90,7 @@ function Product() {
           )}
 
           {/* WhatsApp Button */}
-          {(product.owner?.mobile || product.mobile) && (
+          {(product.owner?.phone || product.phone) && (
             <button onClick={openWhatsApp} className={styles.whatsappBtn}>
               <FaWhatsapp size={20} /> Contact on WhatsApp
             </button>
