@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import styles from "../Login/Login.module.css"
+import styles from "../LogIn/LogIn.module.css"
 
 function SignIn() {
   const userName = localStorage.getItem("userName") || "null";
